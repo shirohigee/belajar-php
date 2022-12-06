@@ -1,36 +1,3 @@
-<?php
-//tangkap data dari form
-if (isset($_POST["submit"])) {
-    $id_jurusan = $_POST["id_jurusan"];
-    $nim = $_POST["nim"];
-    $nama = $_POST["nama"];
-    $gender = $_POST["jenis_kelamin"];
-    $tp_lahir = $_POST["tempat_lahir"];
-    $tg_lahir = $_POST["tanggal_lahir"];
-    $alamat = $_POST["alamat"];
-}
-// Buat koneksi dengan MySQL
-$conn = mysqli_connect("localhost", "root", "", "fakultas");
-
-//cek koneksi dengan Database
-if (mysqli_connect_errno()) {
-    echo "Koneksi Gagal " . mysqli_connect_error();
-} else {
-    echo "Koneksi Berhasil";
-}
-//buat sql query untuk insert ke database
-$sql = 'INSERT INTO mahasiswii ( id_jurusan,  nim, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, alamat) VALUES ($id_jurusan, "$nim", "$nama", "$gender", "$tp_lahir", "$tg_lahir", "$alamat")';
-
-if (mysqli_query($conn, $sql)) {
-    echo "Data baru berhasil ditambahkan";
-} else {
-    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-}
-//tutup koneksi dengan database
-mysqli_close($conn);
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,3 +23,36 @@ mysqli_close($conn);
 </body>
 
 </html>
+
+<?php
+//tangkap data dari form
+if (isset($_POST["submit"])) {
+    $id_jurusan = $_POST["id_jurusan"];
+    $nim = $_POST["nim"];
+    $nama = $_POST["nama"];
+    $jenisKelamin = $_POST["jenis_kelamin"];
+    $tp_lahir = $_POST["tempat_lahir"];
+    $tg_lahir = $_POST["tanggal_lahir"];
+    $alamat = $_POST["alamat"];
+
+    // Buat koneksi dengan MySQL
+    $conn = mysqli_connect("localhost", "root", "", "fakultas");
+
+    //cek koneksi dengan Database
+    if (mysqli_connect_errno()) {
+        echo "Koneksi Gagal " . mysqli_connect_error();
+    } else {
+        echo "Koneksi Berhasil";
+    }
+    //buat sql query untuk insert ke database
+    $query = "INSERT INTO mahasiswii (id_jurusan,  nim, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, alamat) VALUES ('$id_jurusan', '$nim', '$nama', '$jenisKelamin', '$tp_lahir', '$tg_lahir', '$alamat')";
+
+    if (mysqli_query($conn, $query)) {
+        echo "Data baru berhasil ditambahkan";
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+    //tutup koneksi dengan database
+    mysqli_close($conn);
+}
+?>
